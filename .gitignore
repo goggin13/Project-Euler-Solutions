@@ -1,0 +1,4 @@
+*.mli
+*.cmo
+*.cmi
+a.out
