@@ -69,15 +69,15 @@ let prod (p: pos) (g: grid) (d: direction) : int =
 	inner 0 1 x y
 ;;
 
-let max_prod (p: pos) (g: grid): (int * direction) =
-	let rec inner ls max_prod max_d : (int * direction) =
+let max_prod (p: pos) (g: grid): int =
+	let rec inner ls max_prod : int =
 		match ls with
 		  d :: ds -> 
 				let product = (prod p g d) in
-				if product > max_prod then inner ds product d
-				else inner ds max_prod max_d
-		| [] -> (max_prod, max_d)
-	in inner directions 0 (List.hd directions)
+				if product > max_prod then inner ds product
+				else inner ds max_prod
+		| [] -> max_prod
+	in inner directions 0
 ;;
 
 let fold_grid (f: int -> pos -> int) (a: int) (g: grid) : int =	
@@ -123,29 +123,14 @@ let g : grid =
   [01; 70; 54; 71; 83; 51; 54; 69; 16; 92; 33; 48; 61; 43; 52; 01; 89; 19; 67; 48]]
 in
 
-let g2 : grid =
-	[[1; 2; 1; 1];
-	 [1; 2; 1; 1];
-	 [1; 3; 1; 1];
-	 [1; 3; 1; 1]]
-in
-
 let f acc p =
-	let () = print_string "processing point ... " in
-	let () = print_pos p in
-	let (m_prod, m_d) = max_prod p g in
-	if (m_prod) > acc then 
-	  let () = print_endline "=====================" in
-	  let () = print_pos p in 
-	  let () = print_pos m_d in
-	  let () = print_endline (string_of_int m_prod) in
-		let () = print_endline "=====================" in
-	  m_prod
+	let m_prod = max_prod p g in
+	if (m_prod) > acc then m_prod
 	else acc
 in
 
 let max = fold_grid f 0 g in
 
 print_endline (string_of_int (max));;
-
+(* 70600674 *)
 

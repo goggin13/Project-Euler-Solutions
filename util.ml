@@ -14,3 +14,13 @@ let print_point x y : unit =
 	let s = "(" ^ (string_of_int x) ^ ", "
 							^ (string_of_int y) ^ ")"
 	in print_endline s
+	
+
+let factor n : int list =
+	let s : int = int_of_float (floor (sqrt (float_of_int n))) in
+  let ls = Array.init s (fun x -> x + 1) in
+  let collect acc c = 
+	  if n mod c = 0 then c :: (n / c) :: acc
+	  else acc
+	in
+  Array.fold_left collect [] ls
