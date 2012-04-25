@@ -1,4 +1,3 @@
-
 ## Project Euler Solutions
 
 Here are solutions to the problems I have solved from [http://projecteuler.net/](http://projecteuler.net/),
